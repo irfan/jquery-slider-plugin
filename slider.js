@@ -1,31 +1,28 @@
 (function($){
 	
-	$.fn.slider = function(options, callback){
+	$.fn.slider = function(options){
+		
 		// extend user defined and default options 
 		var opts = $.extend(true, {}, defaults, options),
 			el = $(this);
+			
+		opts.active = 0;	// store active item #no
 		
-		el.bind('init.slider', actions.init);
-		el.bind('start.slider', actions.start);
+		if (opts.method == 'flat') {
+			el.bind('next.flat.slider', actions.next.flat);
+		}
+		else {
+			el.bind('next.circle.slider', actions.next.circle);
+		}
 		
-		el.bind('next.circle.slider', actions.next.circle);
-		el.bind('next.flat.slider', actions.next.flat);
-		
-		el.bind('prev.slider', actions.prev);
-		el.bind('stop.slider', actions.stop);
-		el.bind('debug.slider', actions.debug);
-		
-		if (callback) {
-			opts.callback = callback;
-		};
-		
-		el.trigger('init.slider', opts);
-		//console.log('hede')
+		el.bind('init.slider', actions.init)
+		  .bind('start.slider', actions.start)
+		  .bind('debug.slider', actions.debug)
+		  .trigger('init.slider', opts);
 	};
 	
 	var actions = {
 		init: function(e, opts){
-			//console.log(e, opts);
 			var el = $(e.target)
 				ul = $('ul', el);
 
@@ -74,31 +71,16 @@
 			
 			var el = $(e.target),
 				opts = el.data('slider'),
-				
-				event = '';
-			
-			switch(opts.method){
-				case 'circle' :
-					event = 'next.circle.slider';
-				break;
-				
-				case 'flat':
-					event = 'next.flat.slider';
-				break;
-			}
+				event = 'next.' + opts.method + '.slider';
 			
 			opts.interval = setInterval(function(){
 				el.trigger(event);
-				
-				if (opts.callback) {
-					opts.callback(opts);
-				};
 			}, opts.wait);
 			
 			el.data('slider', opts);
 			
 		},
-		next:{
+		next: {
 			circle: function(e){
 				var el = $(e.target),
 					opts = el.data('slider'),
@@ -139,15 +121,6 @@
 				ul.animate({left: to}, duration);
 			}
 		},
-		prev: function(e){
-			
-		},
-		stop: function(e){
-			
-		},
-		goto: function(e, id){
-			
-		},
 		debug:function(e){
 			console.group('slider debugging');
 				var item = $(e.target).data('slider');
@@ -159,15 +132,14 @@
 	},
 	
 	defaults = {
-		auto: true,
-		showControls: true,
-		wait: 3000,
-		effect: 'slide',
-		duration: 300,
-		repeat: true,
-		horizontal: false,
-		method: 'circle',
-		active: 0
+		method: 'circle',	// flat or circle
+		auto: true,			// if set up as false you have to start slider by trigger start.slider event. 
+		wait: 3000,			// plugin have to wait before go to next slide
+		effect: 'slide',	// just support the slide
+		duration: 300,		// effect duration
+		showControls: true,	// will use in the future
+		repeat: true,		// will use in the future
+		horizontal: false,	// will use in the future
 	};
 	
 })(jQuery);

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>example file of slider plugin</title>
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="../slider.js"></script>
+	<link rel="stylesheet" href="../slider.css" type="text/css" media="screen" title="Rating CSS">
+	
+	<script type="text/javascript">
+	    $(function(){
+			$('#sliderContainer').slider();
+	    });
+	</script>
+</head>
+
+<body>
+    <h1>jQuery Slider Plugin</h1>
+    <section>
+	    <div id="sliderContainer">
+			<ul>
+				<li><img src="_img/5131699859_3a6cc4c711.jpg"></img></li>
+				<li><img src="_img/5131751435_723314c87b.jpg"></img></li>
+				<li><img src="_img/5132311606_a451ec7ed6.jpg"></img></li>
+				<li><img src="_img/5132345504_25b2cb4e88.jpg"></img></li>
+				<li><img src="_img/5132358304_8e3d528751.jpg"></img></li>
+			</ul>
+	    </div>
+	</section>
+	
+    <section>
+		<h2>Example Usage</h2>
+		<h3>HTML - Include the files</h3>
+    	<pre>
+    &lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../slider.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" href="../slider.css" type="text/css" media="screen" title="Rating CSS" /&gt;
+    	</pre>
+        <h3>JavaScript - Simple usage</h3>
+		<pre>
+&lt;script&gt;
+    $(function(){
+        $('#sliderContainer').slider();
+    });
+&lt;/script&gt;
+        </pre>
+        <h3>JavaScript - Using with user options</h3>
+        <pre>
+&lt;script&gt;
+    $(function(){
+        $('#sliderContainer').slider({
+            wait:2500,
+            method:'flat'
+        });
+    });
+&lt;/script&gt;
+		</pre>
+
+        <h3>Html</h3>
+        <pre>
+&lt;div id="sliderContainer"&gt;
+    &lt;ul&gt;
+        &lt;li&gt;&lt;img src="_img/5131699859_3a6cc4c711.jpg">&lt;/img&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="_img/5131751435_723314c87b.jpg">&lt;/img&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="_img/5132311606_a451ec7ed6.jpg">&lt;/img&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="_img/5132345504_25b2cb4e88.jpg">&lt;/img&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;img src="_img/5132358304_8e3d528751.jpg">&lt;/img&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+&lt;/div&gt;
+        </pre>
+    </section>
+</body>
+</html>

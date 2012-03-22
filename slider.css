@@ -1,16 +1,19 @@
 #sliderContainer{
-	width:660px;
-	height:330px;
+	width:500px;
+	height:333px;
 	overflow:hidden;
 	position:relative;
 }
 
 #sliderContainer ul{
 	position:absolute;
+	padding:0;
+	margin:0;
 }
 
 #sliderContainer li{
 	float:left;
+	list-style:none;
 }
 #sliderControl li{
 	cursor: pointer;
