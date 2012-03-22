@@ -1,0 +1,21 @@
+#sliderContainer{
+	width:660px;
+	height:330px;
+	overflow:hidden;
+	position:relative;
+}
+
+#sliderContainer ul{
+	position:absolute;
+}
+
+#sliderContainer li{
+	float:left;
+}
+#sliderControl li{
+	cursor: pointer;
+}
+
+.sliderProduct{
+	height:220px !important;
+}
