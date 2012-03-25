@@ -1,4 +1,4 @@
-[jQuery Slider Plugin](http://irfandurmus.dev/projects/jquery-slider-plugin/)
+[jQuery Slider Plugin](http://irfandurmus.com/projects/jquery-slider-plugin/)
 ======================================================================================
 
 How to use 
