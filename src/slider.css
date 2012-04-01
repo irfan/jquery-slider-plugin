@@ -1,24 +1,24 @@
 #sliderContainer{
-	width:500px;
-	height:333px;
-	overflow:hidden;
-	position:relative;
+    width:500px;
+    height:333px;
+    overflow:hidden;
+    position:relative;
 }
 
 #sliderContainer ul{
-	position:absolute;
-	padding:0;
-	margin:0;
+    position:absolute;
+    padding:0;
+    margin:0;
 }
 
 #sliderContainer li{
-	float:left;
-	list-style:none;
+    float:left;
+    list-style:none;
 }
 #sliderControl li{
-	cursor: pointer;
+    cursor: pointer;
 }
 
 .sliderProduct{
-	height:220px !important;
+    height:220px !important;
 }
