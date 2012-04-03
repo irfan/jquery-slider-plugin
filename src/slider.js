@@ -57,11 +57,13 @@
         element.bind('next.slider', function(){
             console.log('next slider');
         });
+        console.log('initControls');
     }
 
 
     var actions = {
         init: function(event, options){
+            console.log('init');
             var element = $(event.target),
                 itemList = $('.sliderItems', element);
             
@@ -91,21 +93,23 @@
             };
 
             if (options.showControls) {
-                // initControls(element, options);
+                initControls(element, options);
             };
  
             return;
         },
         start: function(event){
             
+            console.log('start');
             var element = $(event.target),
                 options = element.data('slider'),
-                event = 'next.' + options.method + '.slider';
-            
+                event = 'next.' + options.method + '.slider',
+                controls = $('.sliderControl', element).children();
+                
             options.interval = setInterval(function(){
                 element.trigger(event);
                 
-                $('.sliderControl', element).removeClass('sliderActive');
+                controls.removeClass('sliderActive');
                 var active = $('li:nth-child(' + (options.active + 1) + ')', element);
                 if ( active.length < 1 ){
                     active = $('li:first-child', el);
@@ -139,25 +143,24 @@
                     options.active = 1;
                 }
             },
-            flat: function(e){
-                var el = $(event.target),
-                    options = el.data('slider'),
-
+            flat: function(event){
+                var element = $(event.target),
+                    options = element.data('slider'),
                     to = '',
                     duration = options.duration,
-                    ul = $('.sliderItems', el);
+                    itemList = $('.sliderItems', element);
 
                 if (options.active < (options.totalItem -1)) {
-                    to = ul.position().left - options.slideSize;
+                    to = itemList.position().left - options.slideSize;
                     duration = options.duration;
                     options.active = options.active + 1;
                 }
                 else{
-                    to = ul.position().left + (options.slideSize * (options.totalItem -1));
+                    to = itemList.position().left + (options.slideSize * (options.totalItem -1));
                     duration = options.duration * options.totalItem;
                     options.active = 0;
                 }
-                ul.animate({left: to}, duration);
+                itemList.animate({left: to}, duration);
             }
         },
         prev: function(e){},
