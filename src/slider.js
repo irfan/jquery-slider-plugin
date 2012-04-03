@@ -17,89 +17,96 @@
 
 (function($){
     
-    $.fn.slider = function(options){
+    $.fn.slider = function(userOptions){
         
         // extend user defined and default options 
-        var opts = $.extend(true, {}, defaults, options),
-            el = $(this);
-            
+        var options = $.extend(true, {}, defaults, userOptions),
+            element = $(this);
         
-        if (opts.method == 'flat') {
-            el.bind('next.flat.slider', actions.next.flat);
+        if (options.method == 'flat') {
+            element.bind('next.flat.slider', actions.next.flat);
         }
         else {
-            el.bind('next.circle.slider', actions.next.circle);
+            element.bind('next.circle.slider', actions.next.circle);
         }
         
-        el.bind('init.slider', actions.init)
+        element.bind('init.slider', actions.init)
             .bind('start.slider', actions.start)
             .bind('debug.slider', actions.debug)
 
             .bind('prev.slider', actions.prev)
             .bind('stop.slider', actions.stop)
 
-            .trigger('init.slider', opts);
+            .trigger('init.slider', options);
     };
     
-    var actions = {
-        init: function(e, opts){
-            var el = $(e.target)
-                ul = $('ul', el);
 
-            opts.el = el;
+    function initControls (element, options) {
+        var controls = '<ul class="sliderControl">',
+            i = 0,
+            l = options.totalItem;
+
+        for (; i < l ; i++) {
+            controls += '<li />';
+        };
+
+        controls += '</ul>';
+
+        element.append(controls);
+        
+        element.bind('next.slider', function(){
+            console.log('next slider');
+        });
+    }
+
+
+    var actions = {
+        init: function(event, options){
+            var element = $(event.target),
+                itemList = $('.sliderItems', element);
             
-            if (opts.showControls) {
-                el.append('<div id="sliderControl"><ol></ol></div>');
-            };
-            
-            if (opts.horizontal) {
-                ul.children().css('float','none');
-                // TODO
-            }
-            else{
-                var items = ul.children().length,
-                    itemWidth = ul.children(':first').width(),
+            if(options.horizontal == false) {
+                var items = itemList.children().length,
+                    itemWidth = itemList.children(':first').width(),
                     width = (items + 1) * itemWidth;
                 
-                opts.totalItem = items;
-                opts.slideSize = itemWidth;
-                ul.width(width + 'px');
+                options.totalItem = items;
+                options.slideSize = itemWidth;
+                itemList.width(width + 'px');
             }
-            
-            if (opts.showControls) {
-                var list = '<li class="sliderActive" />',
-                    i = 0,
-                    l = opts.totalItem - 1;
-                for (; i < l ; i++) {
-                    list = list + '<li />';
-                };
-
-                $('ol', '#sliderControl').append(list);
-            };
-            
-            el.data('slider', opts);
+            else {
+                itemList.children().css('float','none');
+                // TODO
+            }
+                       
+            element.data('slider', options);
             
             // clone first element for circle
-            if (opts.method == 'circle') {
-                ul.children(':first').clone().appendTo(ul);
+            if (options.method == 'circle') {
+                itemList.children(':first').clone().appendTo(itemList);
             };
             
-            if (opts.auto) {
-                el.trigger('start.slider');
+            if (options.auto) {
+                element.trigger('start.slider');
             };
+
+            if (options.showControls) {
+                // initControls(element, options);
+            };
+ 
             return;
         },
-        start: function(e){
+        start: function(event){
             
-            var el = $(e.target),
-                opts = el.data('slider'),
-                event = 'next.' + opts.method + '.slider';
+            var element = $(event.target),
+                options = element.data('slider'),
+                event = 'next.' + options.method + '.slider';
             
-            opts.interval = setInterval(function(){
-                el.trigger(event);
+            options.interval = setInterval(function(){
+                element.trigger(event);
                 
-                $('li', el).removeClass('sliderActive');
-                var active = $('li:nth-child(' + (opts.active + 1) + ')', el);
+                $('.sliderControl', element).removeClass('sliderActive');
+                var active = $('li:nth-child(' + (options.active + 1) + ')', element);
                 if ( active.length < 1 ){
                     active = $('li:first-child', el);
                 };
@@ -107,48 +114,48 @@
                 active.addClass('sliderActive');
 
 
-            }, opts.wait);
+            }, options.wait);
             
-            el.data('slider', opts);
+            element.data('slider', options);
             
         },
         next: {
-            circle: function(e){
-                var el = $(e.target),
-                    opts = el.data('slider'),
+            circle: function(event){
+                var el = $(event.target),
+                    options = el.data('slider'),
 
                     to = '',
-                    duration = opts.duration,
-                    ul = $('ul', opts.el);
+                    duration = options.duration,
+                    ul = $('.sliderItems', el);
 
-                if (opts.active < opts.totalItem) {
-                    to = ul.position().left - opts.slideSize;
+                if (options.active < options.totalItem) {
+                    to = ul.position().left - options.slideSize;
                     ul.animate({left: to}, duration);
-                    opts.active = opts.active + 1;
+                    options.active = options.active + 1;
                 }
                 else {
-                    to = '-' + opts.slideSize;
+                    to = '-' + options.slideSize;
                     ul.css('left', '0px').animate({left: to}, duration);
-                    opts.active = 1;
+                    options.active = 1;
                 }
             },
             flat: function(e){
-                var el = $(e.target),
-                    opts = el.data('slider'),
+                var el = $(event.target),
+                    options = el.data('slider'),
 
                     to = '',
-                    duration = opts.duration,
-                    ul = $('ul', opts.el);
+                    duration = options.duration,
+                    ul = $('.sliderItems', el);
 
-                if (opts.active < (opts.totalItem -1)) {
-                    to = ul.position().left - opts.slideSize;
-                    duration = opts.duration;
-                    opts.active = opts.active + 1;
+                if (options.active < (options.totalItem -1)) {
+                    to = ul.position().left - options.slideSize;
+                    duration = options.duration;
+                    options.active = options.active + 1;
                 }
                 else{
-                    to = ul.position().left + (opts.slideSize * (opts.totalItem -1));
-                    duration = opts.duration * opts.totalItem;
-                    opts.active = 0;
+                    to = ul.position().left + (options.slideSize * (options.totalItem -1));
+                    duration = options.duration * options.totalItem;
+                    options.active = 0;
                 }
                 ul.animate({left: to}, duration);
             }
@@ -156,9 +163,9 @@
         prev: function(e){},
         stop: function(e){},
         _goto: function(e, id){},
-        debug:function(e){
+        debug:function(event){
             console.group('slider debugging');
-                var item = $(e.target).data('slider');
+                var item = $(event.target).data('slider');
                 $.each(item, function(i, v){
                     console.log(i, ' : ', v);
                 });
@@ -173,7 +180,7 @@
         effect: 'slide',    // just support the slide
         duration: 300,      // effect duration
         showControls: true, // Show control buttons,
-        active: 0,
+        active: 0,          // Active item number
         repeat: true,       // TODO: Always repeating for now
         horizontal: false,  // TODO: Horizonal options will add
     };
