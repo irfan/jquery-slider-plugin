@@ -117,8 +117,9 @@
         start: function(event){
             
             var element = $(event.target),
-                options = element.data('slider'),
-                event = 'next.' + options.method + '.slider';
+                options = element.data('slider');
+            
+            event = 'next.' + options.method + '.slider';
             
             // the loop!
             options.interval = setInterval(function(){
