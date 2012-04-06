@@ -29,20 +29,15 @@
             return;
         }
         
-        if (options.method == 'flat') {
-            element.bind('next.flat.slider', actions.next.flat);
-        }
-        else {
-            element.bind('next.circle.slider', actions.next.circle);
-        }
-        
         element.bind('init.slider', actions.init)
             .bind('start.slider', actions.start)
             .bind('debug.slider', actions.debug)
 
             .bind('prev.slider', actions.prev)
             .bind('stop.slider', actions.stop)
-
+            
+            .bind('next.' + options.method + '.slider', actions.next[options.method])
+            
             .trigger('init.slider', options);
     };
     
