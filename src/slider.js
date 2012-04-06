@@ -89,11 +89,9 @@
                 itemList = $('.sliderItems', element);
             
             if(options.horizontal == false) {
-                var items = itemList.children().length,
-                    itemWidth = itemList.children(':first').width(),
+                var itemWidth = itemList.children(':first').width(),
                     width = (items + 1) * itemWidth;
                 
-                options.totalItem = items;
                 options.slideSize = itemWidth;
                 itemList.width(width + 'px');
             }
