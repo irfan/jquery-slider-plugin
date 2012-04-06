@@ -23,6 +23,12 @@
         var options = $.extend(true, {}, defaults, userOptions),
             element = $(this);
         
+        options.totalItem = $('.sliderItems', element).children().length;
+        
+        if(options.totalItem < 2) {
+            return;
+        }
+        
         if (options.method == 'flat') {
             element.bind('next.flat.slider', actions.next.flat);
         }
