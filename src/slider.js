@@ -85,7 +85,7 @@
             
             if(options.horizontal == false) {
                 var itemWidth = itemList.children(':first').width(),
-                    width = (items + 1) * itemWidth;
+                    width = (options.totalItem + 1) * itemWidth;
                 
                 options.slideSize = itemWidth;
                 itemList.width(width + 'px');
