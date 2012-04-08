@@ -5,8 +5,8 @@
 	<meta charset="utf-8">
 	<title>slider plugin samples</title>
 	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.min.js"></script>
-	<script type="text/javascript" src="../src/slider.js"></script>
-	<link rel="stylesheet" href="../src/slider.css" type="text/css" media="screen" title="Rating CSS">
+	<script type="text/javascript" src="../min/slider.js"></script>
+	<link rel="stylesheet" href="../min/slider.css" type="text/css" media="screen" title="Rating CSS">
 	
 	<script type="text/javascript">
 	    $(function(){
@@ -17,7 +17,7 @@
 
 <body>
     <h1><a title="Full Documentation" href="http://irfandurmus.com/projects/jquery-slider-plugin/">jQuery Slider Plugin</a></h1>
-    <p>Please check <a href="http://irfandurmus.com/projects/jquery-slider-plugin/">full documentation</a> for other options of this plugin</p>
+    <p>Please check <a href="http://irfandurmus.com/projects/jquery-slider-plugin/">full documentation</a> for other features of this plugin</p>
     <section>
 	    <div id="sliderContainer">
             <ul class="sliderItems">
@@ -35,8 +35,8 @@
 		<h3>Include the jquery, slider.js and slider.css files to your page</h3>
     	<pre>
     &lt;script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.3/jquery.min.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../slider.js"&gt;&lt;/script&gt;
-    &lt;link rel="stylesheet" href="../slider.css" type="text/css" media="screen" /&gt;
+    &lt;script type="text/javascript" src="../min/slider.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" href="../min/slider.css" type="text/css" media="screen" /&gt;
         </pre>
         <h3>Example HTML</h3>
         <pre>
@@ -52,29 +52,26 @@
         </pre>
         <h3>Basic Usage</h3>
         <pre>
-&lt;script&gt;
-    $(function(){
         $('#sliderContainer').slider();
-    });
-&lt;/script&gt;
         </pre>
-        <h3>Default Options</h3>
+        <h3>Customizable Options</h3>
         <pre>
     {
-        method: 'circle',   // flat or circle
-        auto: true,         // if set up as false you have to start slider by trigger start.slider event. 
-        wait: 3000,         // plugin have to wait before go to next slide
-        effect: 'slide',    // just support the slide
-        duration: 300,      // effect duration
+        method: 'circle',       // type flat or circle
+        auto: true,             // if you type true it gonna start automatically when document ready
+        showControls: true      // type true or false
+        wait: 4000,             // wait before next item
+        duration: 100,          // sliding duration
+
     }
         </pre>
- 
+
         <h3>Example of user defined options</h3>
         <pre>
 &lt;script&gt;
     $(function(){
         $('#sliderContainer').slider({
-            wait:2500,
+            wait : 2500,
             method:'flat'
         });
     });
