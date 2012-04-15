@@ -84,7 +84,7 @@
                 itemList = $('.sliderItems', element);
             
             if(options.horizontal == false) {
-                var itemWidth = itemList.children(':first').width(),
+                var itemWidth = element.width(),
                     width = (options.totalItem + 1) * itemWidth;
                 
                 options.slideSize = itemWidth;
